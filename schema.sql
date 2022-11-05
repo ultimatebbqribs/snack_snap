@@ -4,14 +4,14 @@ CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    PasswordHash VARCHAR(255)
+    pw_hash TEXT
     );
 
 CREATE TABLE posts(
     user_id INTEGER,
     img_url VARCHAR(255),
     img_title VARCHAR(255),
-    comment_date 
+    comment_date TIMESTAMP,
     up_votes INTEGER,
     down_votes INTEGER, 
     post_id SERIAL PRIMARY KEY,

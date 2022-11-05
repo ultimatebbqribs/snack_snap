@@ -73,5 +73,24 @@ body{
     width: 600px
 }
 
+#signup_heading{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#sign_up_form{
+   
+}
+input[type=text]{
+
+    margin: 10px 0;
+}
+input[type=submit]{
+    margin: 10px 0;
+}
+
+label{
+    width: 140px;
+    display: inline-block;
+}
 
 

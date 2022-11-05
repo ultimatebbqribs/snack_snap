@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, redirect, make_response, sess
 import cloudinary
 import cloudinary.uploader
 import os
+from flask_bcrypt import Bcrypt
+from models.db import sql_select, sql_write
 
 cloud_name = os.environ.get('cloud_name')
 COLOUDINARY_API_KEY = os.environ.get('api_key')
@@ -15,10 +17,26 @@ cloudinary.config(
 )
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 @app.route('/')
 def main():
     return render_template('main.html')
+
+@app.route('/sign_up')
+def sign_up():
+    return render_template('sign_up.html')
+
+@app.route('/sign_up_action', methods=['POST', 'GET'])
+def sign_up_action():
+    username = request.form.get('username')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    pw_hash = bcrypt.generate_password_hash(password)
+    sql_write('INSERT INTO users(username,email,pw_hash) VALUES(%s,%s,%s)', [username,email,pw_hash])
+    
+    return redirect('/')
+
 
 @app.route('/add_post', methods=['POST', 'GET'])
 def add_post():
@@ -41,4 +59,4 @@ def img_upload():
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
-    app.run(port=5011, debug=True)
+    app.run(port=5013, debug=True)

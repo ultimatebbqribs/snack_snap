@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Sign-Up Page{% endblock %}
+{% block content %}
+
+<h1 id="signup_heading">Signup Page</h1>
+
+<div id="sign_up_form">
+    <form action="sign_up_action" method="post">
+        <div>
+            <label for="email">Enter your email address:</label>
+            <input type="email" name="email" id="email">
+        </div>
+        <div>
+            <label for="username">Pick a username:</label>
+            <input type="text" name="username" id="username">
+        </div>
+        <div>
+            <label for="password">Choose a secure password:</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <input type="submit" value="submit">
+    </form>
+</div>
+
+{% endblock%}
