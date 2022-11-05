@@ -82,6 +82,10 @@ input[type=text]{
 
     margin: 10px 0;
 }
+input[type=email]{
+
+    margin: 10px 0;
+}
 input[type=submit]{
     margin: 10px 0;
 }
