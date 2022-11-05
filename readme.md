@@ -20,3 +20,21 @@ MVP should show images with a like/unlike + comments
 
 Extra releases will show additional features like uploading images
 
+users 
+
+| id | username | email | password |
+| --- | --- | --- | --- |
+| num | char | char | hash |
+
+post 
+
+| username | image  | img_title  | upvotes | downvotes | post_id |
+| --- | --- | --- | --- | --- | --- |
+| char | url | char | num | num | num |
+|  |  |  |  |  |  |
+
+post comments 
+
+| post_id | comment | username  |
+| --- | --- | --- |
+| num | char | char  |
