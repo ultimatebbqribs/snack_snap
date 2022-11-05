@@ -10,6 +10,8 @@ cloud_name = os.environ.get('cloud_name')
 COLOUDINARY_API_KEY = os.environ.get('api_key')
 COLOUDINARY_API_SECRET = os.environ.get('api_secret')
 
+
+
 cloudinary.config( 
   cloud_name = cloud_name,
   api_key = COLOUDINARY_API_KEY, 
@@ -18,6 +20,7 @@ cloudinary.config(
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 @app.route('/')
 def main():
@@ -44,15 +47,17 @@ def sign_in():
 def sign_in_action():
     email = request.form.get('email')
     password = request.form.get('password')
-    results = sql_select('SELECT email, pw_hash FROM users WHERE email = %s', [str(email)])
-    for row in results:
-        db_email, pw_hash = row
-    print(db_email, pw_hash)
-    if bcrypt.check_password_hash(pw_hash, password):
-        print(f'successful login')
+    if sql_select('SELECT email, pw_hash FROM users WHERE EXISTS (SELECT 1 from users WHERE email = %s)', [str(email)]):
+        results = sql_select('SELECT email, pw_hash FROM users WHERE email = %s', [str(email)])
+        print(f'SQL RESULTS ARE .... {results}')
+        for row in results:
+            db_email, pw_hash = row
+        if bcrypt.check_password_hash(pw_hash, password):
+            print(f'successful login')
+        else:
+            print(f'password incorrect')
     else:
-        (f'username or password incorrect')
-
+        print(f'email does not exist')
 
     return redirect('/')
 
