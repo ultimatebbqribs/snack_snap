@@ -78,6 +78,18 @@ body{
     margin-bottom: 50px;
 }
 
+#sign_in_form{
+    border: solid black;
+    padding: 20px;
+    margin-top: 100px;
+    border: solid rgb(128, 128, 128) 1px;
+    border-radius: 8px;
+    font-size: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    background-color: white;
+}
+
 input[type=text]{
     
     margin: 10px 0;
@@ -88,6 +100,8 @@ input[type=email]{
 }
 input[type=submit]{
     margin: 10px 0;
+    font-size: 20px;
+    margin-top: 40px;
 }
 
 label{
@@ -97,7 +111,18 @@ label{
 }
 
 .flashes{
-    margin: 20px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 50px;
+    flex-grow: 1;
+    border: solid rgb(128, 128, 128) 1px;
+    border-radius: 8px;
+    font-size: 150%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+
+
 }
 
 

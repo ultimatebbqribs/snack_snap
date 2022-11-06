@@ -23,13 +23,11 @@ bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f1737325412ec8ea'
 
 @app.route('/')
+@app.route('/main')
 def main():
-    return render_template('main.html')
+    username = session.get('username')
+    return render_template('main.html', username=username)
 
-@app.route('/<username>')
-def user_main():
-
-    return render_template('main.html')
 
 @app.route('/sign_up')
 def sign_up():
@@ -59,14 +57,17 @@ def sign_in_action():
         for row in results:
             username, db_email, pw_hash = row
         if bcrypt.check_password_hash(pw_hash, password):
-            print(f'successful login')
+            flash(f'Successful login')
             session['username']=username
             return redirect('/')
         else:
-            print(f'password incorrect')
-            return render_template ('/sign_in', )
+            
+            flash(f'email or password incorrect')
+            return redirect('/sign_in')
     else:
-        print(f'email does not exist')
+        flash(f'email or password incorrect')
+        return redirect('/sign_in')
+        
 
     return redirect('/')
 
@@ -88,6 +89,11 @@ def img_upload():
     #get the file name
     image_id = image.filename
 
+@app.route('/sign_out')
+def sign_out():
+    session.pop('username')
+    flash('Sucessfully logged out')
+    return redirect('/')
 
 if __name__ == '__main__':
     from dotenv import load_dotenv

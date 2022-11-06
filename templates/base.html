@@ -19,11 +19,15 @@
         <div class="menu_line"></div>
         <div class="menu_line"></div>
         </div>
+        {% if username %}
+        <li><a href="">{{username}}</a></li>
+        <li><a href="">add new post </a></li>
+        <li><a href="/sign_out">sign-out</a></li>
+        {% else %}
 
         <li id="drop_down"><a href="/sign_up">sign-up</a></li>
         <li><a href="/sign_in">sign-in</a></li>
-        <li><a href="">profile</a></li>
-        <li><a href="">add new post </a></li>
+        {%endif%}
 
     </ul>
     {% endblock %}
