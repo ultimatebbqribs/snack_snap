@@ -2,10 +2,25 @@
 {% block title %}Main Page{% endblock %}
 {% block content %}
 
-<div class="content_tile">
-    <div class="img_tile"></div>
-    <div class="comment_tile"></div>
+{% if username %}
+<h2 id="recipe_title"class="white_content_box">{{title}}</h4>
+<div class="content_tile white_content_box">
+    
+    <div class="img_tile">
+        <img src={{image|safe}} alt="" srcset="">
+    </div>
+    <div class="comment_tile">
+        <p class="instructions">{{instructions|safe}}</p>
+    </div>
 </div>
+{% else %}
+
+
+
+{%endif%}
+
+
+
 
 {% endblock%}
 

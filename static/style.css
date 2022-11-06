@@ -46,15 +46,17 @@ body{
 }
 
 .content_tile {
-    margin-right: 200px;
-    margin-top: 200px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    /* margin-right: 200px; */
+    margin-top: 100px;
     border: solid black;
-    position: absolute;
+    /* position: absolute;
     height: 900px;
-    width: 600px
+    width: 600px */
 }
 
-.img_tile{
+/* .img_tile{
     margin-right: 200px;
     margin-top: 200px;
     margin-top: auto;
@@ -71,24 +73,14 @@ body{
     position: relative;
     height: 200px;
     width: 600px
-}
+} */
 
 #signup_heading{
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
-#sign_in_form{
-    border: solid black;
-    padding: 20px;
-    margin-top: 100px;
-    border: solid rgb(128, 128, 128) 1px;
-    border-radius: 8px;
-    font-size: 100%;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 100;
-    background-color: white;
-}
+
 
 input[type=text]{
     
@@ -113,16 +105,24 @@ label{
 .flashes{
     display: flex;
     align-items: center;
-    background-color: white;
-    height: 50px;
-    flex-grow: 1;
+
+}
+
+.white_content_box{
+    padding: 20px;
+    /* margin-top: 100px; */
     border: solid rgb(128, 128, 128) 1px;
     border-radius: 8px;
-    font-size: 150%;
+    font-size: 100%;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
+    background-color: white;
+}
 
-
+#recipe_title{
+    font-size: 30px;
+    font-weight: 900;
+    text-shadow: 30px;
 }
 
 

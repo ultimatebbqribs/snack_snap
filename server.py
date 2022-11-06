@@ -1,10 +1,12 @@
 import psycopg2
+import requests
 from flask import Flask, render_template, request, redirect, make_response, session, flash, url_for
 import cloudinary
 import cloudinary.uploader
 import os
 from flask_bcrypt import Bcrypt
 from models.db import sql_select, sql_write
+
 
 cloud_name = os.environ.get('cloud_name')
 COLOUDINARY_API_KEY = os.environ.get('api_key')
@@ -26,7 +28,19 @@ app.config['SECRET_KEY'] = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f173
 @app.route('/main')
 def main():
     username = session.get('username')
-    return render_template('main.html', username=username)
+    mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
+    recipe = mealsdb_api.json()
+    for dict in recipe['meals']:
+        meals = dict 
+    image = meals['strMealThumb']
+    title = meals['strMeal']
+    instructions= meals['strInstructions']
+    if len(instructions) > 900:
+        mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
+    else:
+        pass
+
+    return render_template('main.html', username=username, image=image, title=title, instructions=instructions)
 
 
 @app.route('/sign_up')
@@ -97,4 +111,4 @@ def sign_out():
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
-    app.run(port=5014, debug=True)
+    app.run(port=5015, debug=True)
