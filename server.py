@@ -1,5 +1,5 @@
 import psycopg2
-from flask import Flask, render_template, request, redirect, make_response, session
+from flask import Flask, render_template, request, redirect, make_response, session, flash, url_for
 import cloudinary
 import cloudinary.uploader
 import os
@@ -20,10 +20,15 @@ cloudinary.config(
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.config['SECRET_KEY'] = 'thisisasecretkey'
+app.config['SECRET_KEY'] = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f1737325412ec8ea'
 
 @app.route('/')
 def main():
+    return render_template('main.html')
+
+@app.route('/<username>')
+def user_main():
+
     return render_template('main.html')
 
 @app.route('/sign_up')
@@ -37,7 +42,8 @@ def sign_up_action():
     password = request.form.get('password')
     pw_hash = bcrypt.generate_password_hash(password).decode('utf8')
     sql_write('INSERT INTO users(username,email,pw_hash) VALUES(%s,%s,%s)', [username,email,pw_hash])
-    return redirect('/')
+    flash('Your account has been created! You can now login')
+    return redirect(url_for('sign_in'))
 
 @app.route('/sign_in')
 def sign_in():
@@ -48,14 +54,17 @@ def sign_in_action():
     email = request.form.get('email')
     password = request.form.get('password')
     if sql_select('SELECT email, pw_hash FROM users WHERE EXISTS (SELECT 1 from users WHERE email = %s)', [str(email)]):
-        results = sql_select('SELECT email, pw_hash FROM users WHERE email = %s', [str(email)])
+        results = sql_select('SELECT username, email, pw_hash FROM users WHERE email = %s', [str(email)])
         print(f'SQL RESULTS ARE .... {results}')
         for row in results:
-            db_email, pw_hash = row
+            username, db_email, pw_hash = row
         if bcrypt.check_password_hash(pw_hash, password):
             print(f'successful login')
+            session['username']=username
+            return redirect('/')
         else:
             print(f'password incorrect')
+            return render_template ('/sign_in', )
     else:
         print(f'email does not exist')
 

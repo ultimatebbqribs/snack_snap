@@ -79,7 +79,7 @@ body{
 }
 
 input[type=text]{
-
+    
     margin: 10px 0;
 }
 input[type=email]{
@@ -92,7 +92,12 @@ input[type=submit]{
 
 label{
     width: 140px;
+    font-size: 150%;
     display: inline-block;
+}
+
+.flashes{
+    margin: 20px;
 }
 
 
