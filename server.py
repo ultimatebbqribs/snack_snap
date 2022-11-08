@@ -1,24 +1,12 @@
 import psycopg2
 import requests
 from flask import Flask, render_template, request, redirect, make_response, session, flash, url_for
-import cloudinary
-import cloudinary.uploader
 import os
 from flask_bcrypt import Bcrypt
 from models.db import sql_select, sql_write
 
+OMDB_API_KEY = os.environ.get('omdb_key')
 
-cloud_name = os.environ.get('cloud_name')
-COLOUDINARY_API_KEY = os.environ.get('api_key')
-COLOUDINARY_API_SECRET = os.environ.get('api_secret')
-
-
-
-cloudinary.config( 
-  cloud_name = cloud_name,
-  api_key = COLOUDINARY_API_KEY, 
-  api_secret = COLOUDINARY_API_SECRET, 
-)
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -36,7 +24,6 @@ def main():
     title = meals['strMeal']
     instructions= meals['strInstructions']
     while len(instructions) > 900:
-
         mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
     else:
         pass
@@ -83,7 +70,6 @@ def sign_in_action():
         return redirect('/sign_in')
         
 
-    return redirect('/')
 
 @app.route('/add_post', methods=['POST', 'GET'])
 def add_post():
@@ -91,17 +77,6 @@ def add_post():
 
     return render_template('/add_post.html')
 
-@app.route('/img_upload', methods=['POST', 'GET'])
-def img_upload():
-    #get the image from post req
-    image = request.files['image']
-
-    #upload the image 
-    response = cloudinary.uploader.upload(image, filenme=image.filename)
-    print(response)
-
-    #get the file name
-    image_id = image.filename
 
 @app.route('/sign_out')
 def sign_out():
