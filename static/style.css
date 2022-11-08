@@ -48,6 +48,7 @@ body{
 .content_tile {
     display: grid;
     grid-template-columns: 3fr 1fr;
+
     /* margin-right: 200px; */
     margin-top: 100px;
     border: solid black;

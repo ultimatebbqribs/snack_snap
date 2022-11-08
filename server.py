@@ -35,11 +35,11 @@ def main():
     image = meals['strMealThumb']
     title = meals['strMeal']
     instructions= meals['strInstructions']
-    if len(instructions) > 900:
+    while len(instructions) > 900:
+
         mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
     else:
         pass
-
     return render_template('main.html', username=username, image=image, title=title, instructions=instructions)
 
 
