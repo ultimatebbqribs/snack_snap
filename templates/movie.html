@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Movie Page{% endblock %}
+{% block content %}
+
+<h1>Movie information page for {{title}}</h1>
+<p>Year released:{{year}}</p>
+<p>Directed by: {{director}}</p>
+<img src="{{poster}}" alt="">
+<h2><a href="/">back to movie search</a></h2>
+
+{% endblock %}
