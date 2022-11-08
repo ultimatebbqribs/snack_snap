@@ -23,7 +23,7 @@ def main():
     image = meals['strMealThumb']
     title = meals['strMeal']
     instructions= meals['strInstructions']
-    while len(instructions) > 900:
+    if len(instructions) > 900:
         mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
     else:
         pass
@@ -91,4 +91,4 @@ def sign_out():
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
-    app.run(port=5017, debug=True)
+    app.run(port=5019, debug=True)
