@@ -9,9 +9,9 @@ CREATE TABLE users(
 
 CREATE TABLE posts(
     user_id INTEGER,
+    review TEXT,
     img_url VARCHAR(255),
     img_title VARCHAR(255),
-    comment_date TIMESTAMP,
     up_votes INTEGER,
     down_votes INTEGER, 
     post_id SERIAL PRIMARY KEY,
@@ -21,6 +21,7 @@ CREATE TABLE posts(
 CREATE TABLE post_comments(
     post_id SERIAL PRIMARY KEY,
     comment VARCHAR(255),
+    comment_date TIMESTAMP,
     username VARCHAR(255),
     FOREIGN KEY (post_id) REFERENCES posts(post_id)
     

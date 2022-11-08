@@ -69,14 +69,19 @@ def sign_in_action():
         flash(f'email or password incorrect')
         return redirect('/sign_in')
         
+@app.route('/search')
+def search():
+    return render_template('search.html')
 
+@app.route('/search_results', methods=['GET'])
+def search_results():
+    movie=request.args['movie']
+    movie_api = requests.get(f'https://www.omdbapi.com/?s={movie}&apikey=a0b50029')
+    r = movie_api.json()
+    search = r['Search']
+    print(movie)
 
-@app.route('/add_post', methods=['POST', 'GET'])
-def add_post():
-
-
-    return render_template('/add_post.html')
-
+    return render_template('search_results.html', search=search)
 
 @app.route('/sign_out')
 def sign_out():
@@ -86,4 +91,4 @@ def sign_out():
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
-    app.run(port=5015, debug=True)
+    app.run(port=5017, debug=True)

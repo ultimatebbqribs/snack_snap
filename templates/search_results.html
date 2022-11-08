@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Search Page{% endblock %}
+{% block content %}
+
+{% for movie in search%}
+<li class="white_content_box"><a href="/movie?movie={{movie['Title']}}">{{movie['Title']}}</a></li>
+{%endfor%}
+
+{% endblock %}
