@@ -1,4 +1,6 @@
 import psycopg2
+import os
+DB_URL = os.environ.get('DATABASE_URL', 'dbname=snack_snap')
 
 def sql_select(db_query, params=[]):
     conn = psycopg2.connect('dbname=snack_snap')
