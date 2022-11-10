@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, make_response, sess
 import os
 from flask_bcrypt import Bcrypt
 from models.db import sql_select, sql_write
+import time
 
 OMDB_API_KEY = os.environ.get('omdb_key')
 
@@ -18,16 +19,20 @@ def main():
     username = session.get('username')
     mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
     recipe = mealsdb_api.json()
+    indredients = []
     for dict in recipe['meals']:
         meals = dict 
+
+    print(meals['strIngredient1'])
     image = meals['strMealThumb']
     title = meals['strMeal']
     instructions= meals['strInstructions']
-    if len(instructions) > 900:
-        mealsdb_api = requests.get('https://www.themealdb.com/api/json/v1/1/random.php')
+    if len(instructions) < 800:
+        return render_template('main.html', username=username, image=image, title=title, instructions=instructions)
     else:
-        pass
-    return render_template('main.html', username=username, image=image, title=title, instructions=instructions)
+        # time.sleep(.1)
+        return main()
+
 
 
 @app.route('/sign_up')
@@ -69,25 +74,33 @@ def sign_in_action():
         flash(f'email or password incorrect')
         return redirect('/sign_in')
         
-@app.route('/search')
-def search():
-    return render_template('search.html')
 
-@app.route('/search_results', methods=['GET'])
-def search_results():
-    movie=request.args['movie']
-    movie_api = requests.get(f'https://www.omdbapi.com/?s={movie}&apikey=a0b50029')
-    r = movie_api.json()
-    search = r['Search']
-    print(movie)
 
-    return render_template('search_results.html', search=search)
+
 
 @app.route('/sign_out')
 def sign_out():
     session.pop('username')
     flash('Sucessfully logged out')
     return redirect('/')
+
+@app.route('/recipe_comment', methods=['POST','GET'])
+def recipe_comment():
+    recipe = request.form.get('recipe')
+    comment = request.form.get('comment')
+    username = request.form.get('username')
+    print(username)
+    ids = sql_select('SELECT id FROM users WHERE username=%s',[username])
+    id = ids[0]
+
+    print(id)
+
+    sql_write('INSERT INTO comment (user_id, comment, recipe_name) VALUES (%s, %s, %s)', [id, comment, recipe])
+
+
+    flash(f'Comment "{comment}" added to database by {username}')
+    return redirect ('/')
+
 
 if __name__ == '__main__':
     from dotenv import load_dotenv

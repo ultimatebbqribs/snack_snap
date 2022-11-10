@@ -47,7 +47,8 @@ body{
 
 .content_tile {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
 
     /* margin-right: 200px; */
     margin-top: 100px;
@@ -57,24 +58,6 @@ body{
     width: 600px */
 }
 
-/* .img_tile{
-    margin-right: 200px;
-    margin-top: 200px;
-    margin-top: auto;
-    border: solid pink;
-    position: relative;
-    height: 700px;
-    width: 600px
-}
-
-.comment_tile{
-    margin-right: 200px;
-    margin-top: auto;
-    border: solid blue;
-    position: relative;
-    height: 200px;
-    width: 600px
-} */
 
 #signup_heading{
     margin-top: 50px;
@@ -126,4 +109,17 @@ label{
     text-shadow: 30px;
 }
 
+.food_img{
+    width: 500px
+}
+.instructions{
+    font-size: 18px;
+    justify-self: stretch
+}
 
+.recipe_comment{
+    align-self: end;
+}
+.method_tile{
+    margin-left: 10px;
+}
