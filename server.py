@@ -3,7 +3,7 @@ import requests
 from flask import Flask, render_template, request, redirect, make_response, session, flash, url_for
 import os
 from flask_bcrypt import Bcrypt
-from models.db import sql_select, sql_write
+from models.db import sql_select, sql_write, sql_select_one
 import time
 
 OMDB_API_KEY = os.environ.get('omdb_key')
@@ -13,6 +13,8 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f1737325412ec8ea'
 
+# main page reaches themealdb API for random recipe 
+# unpacks API call and checks if ingredients length is under 800
 @app.route('/')
 @app.route('/main')
 def main():
@@ -34,11 +36,13 @@ def main():
         return main()
 
 
-
+# sign up page with form for sign up 
 @app.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
 
+#signup form action, creates password hash, writes userdata and hash
+# into database 
 @app.route('/sign_up_action', methods=['POST', 'GET'])
 def sign_up_action():
     username = request.form.get('username')
@@ -48,11 +52,13 @@ def sign_up_action():
     sql_write('INSERT INTO users(username,email,pw_hash) VALUES(%s,%s,%s)', [username,email,pw_hash])
     flash('Your account has been created! You can now login')
     return redirect(url_for('sign_in'))
-
+# sign in page 
 @app.route('/sign_in')
 def sign_in():
     return render_template('sign_in.html')
 
+# sign in method - checks if user already exists in database
+# checks if user exists in db, then checks pw hash, if both conditionals pass session is set and user logged in
 @app.route('/sign_in_action',methods=['POST', 'GET'])
 def sign_in_action():
     email = request.form.get('email')
@@ -77,13 +83,16 @@ def sign_in_action():
 
 
 
-
+# signs user out of program by removing session key 
 @app.route('/sign_out')
 def sign_out():
     session.pop('username')
     flash('Sucessfully logged out')
-    return redirect('/')
+    return redirect('/')# 
 
+
+#retrives recipe form data and inserts comment into comments 
+# database including id, comment, title, image url 
 @app.route('/recipe_comment', methods=['POST','GET'])
 def recipe_comment():
     title = request.form.get('title')
@@ -102,11 +111,8 @@ def recipe_comment():
     flash(f'Comment "{comment}" added to database by {username}')
     return redirect ('/')
 
-@app.route('/<username>')
-def profile(username):
 
-    return render_template ('profile.html')
-
+# selects results from comments data base and sends list as variable to page for scrolling feed type view 
 @app.route('/feed')
 def feed():
     username = session.get('username')
@@ -119,7 +125,20 @@ def feed():
         list = list 
     print(f'list results is {results}')
     
-    return render_template('feed.html', results=results)
+    return render_template('feed.html', results=results, username=username)
+
+# Guest account login, checks if guest already registered in db, creates and account, then signs in 
+@app.route('/guest_sign_in')
+def guest_sign_in():
+    session['username']='GuestAccount'
+    acc = sql_select_one('SELECT username FROM users WHERE username = %s',['GuestAccount'])
+    print(f'account name is {acc[0]}')
+    if acc[0] is not acc[0]: 
+        sql_write('INSERT INTO users(username) VALUES(%s)', ['GuestAccount'])
+    else:
+        pass
+    flash('logged as a GuestAccount')
+    return redirect ('/')
 
 if __name__ == '__main__':
     from dotenv import load_dotenv
