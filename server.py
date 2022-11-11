@@ -22,7 +22,7 @@ def main():
     indredients = []
     for dict in recipe['meals']:
         meals = dict 
-
+    print(meals)
     print(meals['strIngredient1'])
     image = meals['strMealThumb']
     title = meals['strMeal']
@@ -86,21 +86,40 @@ def sign_out():
 
 @app.route('/recipe_comment', methods=['POST','GET'])
 def recipe_comment():
-    recipe = request.form.get('recipe')
+    title = request.form.get('title')
     comment = request.form.get('comment')
-    username = request.form.get('username')
+    image = request.form.get('image')
+    username = session.get('username')
     print(username)
     ids = sql_select('SELECT id FROM users WHERE username=%s',[username])
     id = ids[0]
 
-    print(id)
+    print(f'form value for recipe is {title}')
 
-    sql_write('INSERT INTO comment (user_id, comment, recipe_name) VALUES (%s, %s, %s)', [id, comment, recipe])
+    sql_write('INSERT INTO comment (user_id, comment, recipe_name, image_url) VALUES (%s, %s, %s, %s)', [id, comment, title, image])
 
 
     flash(f'Comment "{comment}" added to database by {username}')
     return redirect ('/')
 
+@app.route('/<username>')
+def profile(username):
+
+    return render_template ('profile.html')
+
+@app.route('/feed')
+def feed():
+    username = session.get('username')
+    ids = sql_select('SELECT id FROM users WHERE username=%s',[username])
+    id = ids[0]
+    results = sql_select('SELECT id, username, recipe_name, comment, image_url FROM users INNER JOIN comment on user_id = %s',[id])
+    # print(results)
+
+    for list in results:
+        list = list 
+    print(f'list results is {results}')
+    
+    return render_template('feed.html', results=results)
 
 if __name__ == '__main__':
     from dotenv import load_dotenv

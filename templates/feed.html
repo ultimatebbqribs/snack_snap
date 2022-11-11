@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Profile Page{% endblock %}
+{% block content %}
+
+
+    {% for item in results %}
+    <div class="feed_content">
+        <p>{{item[2]}}</p>
+        <br>
+        {{item[1]}}: "{{item[3]}}"
+        <br>
+        <img class='feed_img' src={{item[4]}} alt="">
+    </div>
+
+        {% endfor %}
+    
+</div>
+
+{% endblock %}

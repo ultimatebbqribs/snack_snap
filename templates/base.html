@@ -20,7 +20,8 @@
         <div class="menu_line"></div>
         </div>
         {% if username %}
-        <li><a href="">{{username}}</a></li>
+        <li><a href="/?=<username>">{{username}}</a></li>
+        <li><a href="/feed">feed </a></li>
         <li><a href="">add new post </a></li>
         <li><a href="/sign_out">sign-out</a></li>
         {% else %}

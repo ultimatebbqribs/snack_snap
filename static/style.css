@@ -123,3 +123,20 @@ label{
 .method_tile{
     margin-left: 10px;
 }
+
+.feed_content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    margin-top: 50px;
+    border: solid rgb(128, 128, 128) 1px;
+    border-radius: 8px;
+    font-size: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    background-color: white;
+}
+.feed_img{
+    width: 150px;
+}
+

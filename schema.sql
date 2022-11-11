@@ -11,6 +11,7 @@ CREATE TABLE comment(
     user_id INTEGER,
     comment VARCHAR(255),
     recipe_name VARCHAR(255),
+    image_url TEXT,
     up_votes INTEGER,
     down_votes INTEGER, 
     post_id SERIAL PRIMARY KEY,
