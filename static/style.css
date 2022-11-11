@@ -127,6 +127,7 @@ label{
 .feed_content{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     padding: 20px;
     margin-top: 50px;
     border: solid rgb(128, 128, 128) 1px;
@@ -135,8 +136,14 @@ label{
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     background-color: white;
+    /* border: solid black; */
 }
 .feed_img{
     width: 150px;
 }
 
+.feed_comment_text{
+    font-size: 25px;
+    justify-self: end;
+    /* border: solid black; */
+}
