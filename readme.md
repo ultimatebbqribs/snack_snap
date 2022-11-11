@@ -2,6 +2,8 @@
 
 **A snack rating site where you take a photo of your food/snack and your friends up vote or downvote the photo of your food.** 
 
+***update - scope change 12/11/22 - site will now show users random recipes from the mealsdb api, which the user can the comment on. Comments from all users to be shown in a feed. User can view their post history on profile page and delete their posts**
+
 The site will have 4 main pages
 
 - login page

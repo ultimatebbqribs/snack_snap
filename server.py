@@ -6,8 +6,6 @@ from flask_bcrypt import Bcrypt
 from models.db import sql_select, sql_write, sql_select_one
 import time
 
-OMDB_API_KEY = os.environ.get('omdb_key')
-
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -112,13 +110,13 @@ def recipe_comment():
     return redirect ('/')
 
 
-# selects results from comments data base and sends list as variable to page for scrolling feed type view 
+# selects results from comments data base and sends list as variable to page for scrolling feed type view ordered by most recent 
 @app.route('/feed')
 def feed():
     username = session.get('username')
     ids = sql_select('SELECT id FROM users WHERE username=%s',[username])
     id = ids[0]
-    results = sql_select('SELECT id, username, recipe_name, comment, image_url FROM users INNER JOIN comment on user_id = %s',[id])
+    results = sql_select('SELECT id, username, recipe_name, comment, image_url, post_id FROM users INNER JOIN comment on user_id = %s ORDER BY post_id DESC',[id])
     # print(results)
 
     for list in results:
