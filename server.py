@@ -119,7 +119,7 @@ def feed():
     username = session.get('username')
     ids = sql_select('SELECT id FROM users WHERE username=%s',[username])
     id = ids[0]
-    results = sql_select('SELECT id, username, recipe_name, comment, image_url, post_id FROM users INNER JOIN comment on user_id = %s ORDER BY post_id DESC',[id])
+    results = sql_select('SELECT id, username, recipe_name, comment, image_url, post_id FROM users JOIN comment ON users.id = comment.user_id ORDER BY post_id DESC',[id])
     # print(results)
 
     for list in results:

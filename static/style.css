@@ -118,7 +118,7 @@ label{
 }
 
 .recipe_comment{
-    align-self: end;
+    align-self: start;
 }
 .method_tile{
     margin-left: 10px;
@@ -145,5 +145,7 @@ label{
 .feed_comment_text{
     font-size: 25px;
     justify-self: end;
+    align-self: end;
+    grid-column-start:
     /* border: solid black; */
 }
