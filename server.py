@@ -157,7 +157,7 @@ def profile():
 def delete():
     post_id = request.form.get('post_id')
     print(f'the post id is...{post_id}')
-    sql_write('DELETE FROM comment WHERE post_id = %s', (post_id))
+    sql_write('DELETE FROM comment WHERE post_id = %s', [post_id])
     return redirect('/profile')
 
 if __name__ == '__main__':
