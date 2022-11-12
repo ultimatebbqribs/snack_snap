@@ -9,7 +9,10 @@ import time
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.config['SECRET_KEY'] = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f1737325412ec8ea'
+# app.config = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f1737325412ec8ea'
+app.config['SECRET_KEY'] = os.environ.get('secret_session')
+
+
 
 # main page reaches themealdb API for random recipe 
 # unpacks API call and checks if ingredients length is under 800
@@ -137,6 +140,26 @@ def guest_sign_in():
         pass
     flash('logged as a GuestAccount')
     return redirect ('/')
+
+#profile page wich displays all posts made by the logged in users, and gives
+# option to delete/update posts
+
+@app.route('/profile')
+def profile():
+    username = session.get('username')
+    id = sql_select_one('SELECT id FROM users WHERE username=%s',[username])
+    print(id[0])
+    results = sql_select('SELECT id, username, recipe_name, comment, image_url, post_id FROM users INNER JOIN comment on user_id = %s WHERE id=%s ORDER BY post_id DESC  ',[id[0],id[0]])
+    print(results)
+    return render_template('profile.html', results=results, username=username)
+
+#delete action - deletes row from database by matching post_id from delete form
+@app.route('/delete', methods=['POST', 'GET'])
+def delete():
+    post_id = request.form.get('post_id')
+    print(f'the post id is...{post_id}')
+    sql_write('DELETE FROM comment WHERE post_id = %s', (post_id))
+    return redirect('/profile')
 
 if __name__ == '__main__':
     from dotenv import load_dotenv

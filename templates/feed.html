@@ -5,7 +5,7 @@
 
     {% for item in results %}
     <div class="feed_content">
-        <p>{{item[2]}}</p>
+        <div><p>{{item[2]}}</p></div>
         <br>
         <div class="feed_comment_text">{{item[1]}}: "{{item[3]}}"</div>
         <br>
@@ -14,6 +14,6 @@
 
         {% endfor %}
     
-</div>
+
 
 {% endblock %}
