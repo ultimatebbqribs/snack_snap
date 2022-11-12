@@ -14,11 +14,13 @@
     <div id="header">
     {% block header %}
     <ul id="header_links">
-        <div id="menu_icon">
+        <div id="menu_icon">        
+
         <div class="menu_line"></div>
         <div class="menu_line"></div>
         <div class="menu_line"></div>
         </div>
+        <p id="header_title">snack snap</p>
         {% if username %}
         <li><a href="/profile">{{username}}</a></li>
         <li><a href="/feed">feed </a></li>

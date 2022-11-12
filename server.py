@@ -9,7 +9,6 @@ import time
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-# app.config = '534b6f3f5144a551644226ec2bca9f6ddcbb977730be7ac5f1737325412ec8ea'
 app.config['SECRET_KEY'] = os.environ.get('secret_session')
 
 

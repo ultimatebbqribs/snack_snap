@@ -19,6 +19,10 @@ body{
         border: solid rgb(128, 128, 128) 1px;
         border-radius: 8px;
 }
+#header_title{
+    align-self: flex-start;
+    justify-self: flex-start;
+}
 
 #header li a {
     display: block;
