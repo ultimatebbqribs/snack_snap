@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
-body{
+body {
     max-width: 960px;
     margin-left: auto;
     margin-right: auto;
@@ -9,17 +9,18 @@ body{
 
 
 #header_links {
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;   
-        overflow: hidden;
-        background-color: rgb(255, 255, 255);
-        justify-content: flex-end;
-        border: solid rgb(128, 128, 128) 1px;
-        border-radius: 8px;
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    justify-content: flex-end;
+    border: solid rgb(128, 128, 128) 1px;
+    border-radius: 8px;
 }
-#header_title{
+
+#header_title {
     align-self: flex-start;
     justify-self: flex-start;
 }
@@ -36,13 +37,15 @@ body{
 
 
 }
-.menu_line{
+
+.menu_line {
     width: 35px;
     height: 5px;
     background-color: black;
     margin: 6px 0;
 
 }
+
 #menu_icon {
     margin-right: auto;
     padding: 12px;
@@ -63,40 +66,42 @@ body{
 }
 
 
-#signup_heading{
+#signup_heading {
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
 
 
-input[type=text]{
-    
-    margin: 10px 0;
-}
-input[type=email]{
+input[type=text] {
 
     margin: 10px 0;
 }
-input[type=submit]{
+
+input[type=email] {
+
+    margin: 10px 0;
+}
+
+input[type=submit] {
     margin: 10px 0;
     font-size: 20px;
     margin-top: 40px;
 }
 
-label{
+label {
     width: 140px;
     font-size: 150%;
     display: inline-block;
 }
 
-.flashes{
+.flashes {
     display: flex;
     align-items: center;
 
 }
 
-.white_content_box{
+.white_content_box {
     padding: 20px;
     /* margin-top: 100px; */
     border: solid rgb(128, 128, 128) 1px;
@@ -107,28 +112,30 @@ label{
     background-color: white;
 }
 
-#recipe_title{
+#recipe_title {
     font-size: 30px;
     font-weight: 900;
     text-shadow: 30px;
 }
 
-.food_img{
+.food_img {
     width: 500px
 }
-.instructions{
+
+.instructions {
     font-size: 18px;
     justify-self: stretch
 }
 
-.recipe_comment{
+.recipe_comment {
     align-self: start;
 }
-.method_tile{
+
+.method_tile {
     margin-left: 10px;
 }
 
-.feed_content{
+.feed_content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -142,14 +149,15 @@ label{
     background-color: white;
     /* border: solid black; */
 }
-.feed_img{
+
+.feed_img {
     width: 150px;
 }
 
-.feed_comment_text{
+.feed_comment_text {
     font-size: 25px;
     justify-self: end;
     align-self: end;
-    grid-column-start:
+
     /* border: solid black; */
 }
